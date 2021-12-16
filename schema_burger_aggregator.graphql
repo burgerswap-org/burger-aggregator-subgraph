@@ -1,3 +1,11 @@
+type RewardInfoEntity @entity {
+    # aggregator contract address
+    id: ID!
+    blockNumber:BigInt!
+    timestamp:BigInt!
+    totalAmount: BigDecimal!
+}
+
 type RewardAmountEntity @entity {
     # account address
     id: ID!

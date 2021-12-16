@@ -16,7 +16,7 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - RewardAmount
+        - RewardAmountEntity
       abis:
         - name: BurgerAggregator
           file: ./build/contracts/BurgerAggregator.json
@@ -36,7 +36,7 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - RewardAmount
+        - RewardAmountEntity
       abis:
         - name: BurgerAggregator
           file: ./build/contracts/BurgerAggregator.json

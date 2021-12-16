@@ -1,5 +1,5 @@
 import { Swap } from '../generated/BurgerAggregator/BurgerAggregator'
-import { RewardAmountEntity } from '../generated/schema'
+import { RewardAmountEntity, RewardInfoEntity } from '../generated/schema'
 import { convertTokenToDecimal, BD_18, BI_18 } from '../comn/helper'
 import { BigInt, log, BigDecimal } from '@graphprotocol/graph-ts'
 import { 
@@ -39,13 +39,8 @@ export function handleSwap(event: Swap): void {
         flag = true;
     }
     if (!flag) return
-    log.info("=================destToken: {}", [event.params.destToken.toHex()])
-    // log.info("=================rate: {}", [rate.toString()])
-    // log.info("=================returnAmount: {}", [event.params.returnAmount.toString()])
     let rewardAmount = convertTokenToDecimal(event.params.returnAmount, BI_18)
-    // log.info("=================rewardAmount: {}", [rewardAmount.toString()])
     rewardAmount = rewardAmount.times(rate).div(BD_18)
-    log.info("=================rewardAmount: {}", [rewardAmount.toString()])
     let entity = RewardAmountEntity.load(event.params.swaper.toHex())
     if (entity == null) {
         entity = new RewardAmountEntity(event.params.swaper.toHex())
@@ -58,6 +53,21 @@ export function handleSwap(event: Swap): void {
     entity.blockNumber = event.block.number
     entity.timestamp = event.block.timestamp
     entity.rewardAmount = entity.rewardAmount.plus(rewardAmount)
+
+    let infoEntity = RewardInfoEntity.load(event.address.toHex())
+    if (infoEntity == null) {
+        infoEntity = new RewardInfoEntity(event.address.toHex())
+        infoEntity.blockNumber = event.block.number
+        infoEntity.timestamp = event.block.timestamp
+        infoEntity.totalAmount = rewardAmount
+        infoEntity.save()
+        return
+    }
+    infoEntity.blockNumber = event.block.number
+    infoEntity.timestamp = event.block.timestamp
+    infoEntity.totalAmount = infoEntity.totalAmount.plus(rewardAmount)
+
     entity.save()
+    infoEntity.save()
     return
 }
