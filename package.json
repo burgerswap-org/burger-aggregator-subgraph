@@ -1,0 +1,26 @@
+{
+  "name": "burgersubgraph",
+  "version": "0.1.0",
+  "scripts": {
+    "migrate": "truffle migrate --reset",
+    "compile": "truffle compile",
+    "flatten": "waffle flatten",
+    "build": "graph build",
+    "codegen-burger-aggregator": "graph codegen subgraph_burger_aggregator.yaml",
+    "create-burger-aggregator": "graph create --node http://localhost:8020/ burgeraggregator/aggregator",
+    "deploy-burger-aggregator": "graph deploy burgeraggregator/aggregator subgraph_burger_aggregator.yaml --node http://localhost:8020/ --ipfs http://localhost:5001 "
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.18.0",
+    "@graphprotocol/graph-ts": "^0.18.0"
+  },
+  "dependencies": {
+    "@nomiclabs/buidler-waffle": "^2.1.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "ethereum-waffle": "^3.1.0",
+    "truffle": "^5.0.4",
+    "truffle-flattener": "^1.4.4",
+    "truffle-hdwallet-provider": "^1.0.4"
+  }
+}

@@ -1,0 +1,7 @@
+type RewardAmountEntity @entity {
+    # account address
+    id: ID!
+    blockNumber:BigInt!
+    timestamp:BigInt!
+    rewardAmount: BigDecimal!
+}

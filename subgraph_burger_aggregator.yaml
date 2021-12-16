@@ -1,0 +1,47 @@
+specVersion: 0.0.2
+description: burger aggregatory
+repository: https://github.com/burgerswap-org/burger-aggregator
+schema:
+  file: ./schema_burger_aggregator.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: BurgerAggregatorV1
+    network: mainnet
+    source:
+      address: '0xE3F08e81Ec8533D6CD7784B672e4237087b2A7c8'
+      abi: BurgerAggregator
+      startBlock:  13264260
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - RewardAmount
+      abis:
+        - name: BurgerAggregator
+          file: ./build/contracts/BurgerAggregator.json
+      eventHandlers:
+        - event: Swap(address,address,address,uint256,uint256)
+          handler: handleSwap
+      file: ./burgerAggregator/aggregator.ts
+  - kind: ethereum/contract
+    name: BurgerAggregatorV2
+    network: mainnet
+    source:
+      address: '0xfa9cCB91d28d35E12216e43d8990D31595783600'
+      abi: BurgerAggregator
+      startBlock:  13515755
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - RewardAmount
+      abis:
+        - name: BurgerAggregator
+          file: ./build/contracts/BurgerAggregator.json
+      eventHandlers:
+        - event: Swap(address,address,address,uint256,uint256)
+          handler: handleSwap
+      file: ./burgerAggregator/aggregator.ts
+  
