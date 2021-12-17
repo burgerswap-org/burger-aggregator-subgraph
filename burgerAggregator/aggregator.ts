@@ -2,7 +2,7 @@ import { Swap } from '../generated/BurgerAggregator/BurgerAggregator'
 import { RewardAmountEntity, RewardInfoEntity } from '../generated/schema'
 import { convertTokenToDecimal, BD_18, BI_18 } from '../comn/helper'
 import { BigInt, log, BigDecimal } from '@graphprotocol/graph-ts'
-import { 
+import {
     ZERO_ADDRESS, BUSD_ADDRESS, USDT_ADDRESS, USDC_ADDRESS, DAI_ADDRESS, CAKE_ADDRESS, ETH_ADDRESS, BTC_ADDRESS, BURGER_ADDRESS,
     ZERO_RATE, BUSD_RATE, USDT_RATE, USDC_RATE, DAI_RATE, CAKE_RATE, ETH_RATE, BTC_RATE, BURGER_RATE
 } from '../comn/const'
@@ -41,6 +41,7 @@ export function handleSwap(event: Swap): void {
     if (!flag) return
     let rewardAmount = convertTokenToDecimal(event.params.returnAmount, BI_18)
     rewardAmount = rewardAmount.times(rate).div(BD_18)
+
     let entity = RewardAmountEntity.load(event.params.swaper.toHex())
     if (entity == null) {
         entity = new RewardAmountEntity(event.params.swaper.toHex())
@@ -48,7 +49,7 @@ export function handleSwap(event: Swap): void {
         entity.timestamp = event.block.timestamp
         entity.rewardAmount = rewardAmount
         entity.save()
-        return
+        entity = RewardAmountEntity.load(event.params.swaper.toHex())
     }
     entity.blockNumber = event.block.number
     entity.timestamp = event.block.timestamp
@@ -61,7 +62,7 @@ export function handleSwap(event: Swap): void {
         infoEntity.timestamp = event.block.timestamp
         infoEntity.totalAmount = rewardAmount
         infoEntity.save()
-        return
+        infoEntity = RewardInfoEntity.load(event.address.toHex())
     }
     infoEntity.blockNumber = event.block.number
     infoEntity.timestamp = event.block.timestamp
