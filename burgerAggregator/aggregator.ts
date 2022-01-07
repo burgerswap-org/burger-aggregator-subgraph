@@ -47,7 +47,7 @@ export function handleSwap(event: Swap): void {
         entity = new RewardAmountEntity(event.params.swaper.toHex())
         entity.blockNumber = event.block.number
         entity.timestamp = event.block.timestamp
-        entity.rewardAmount = rewardAmount
+        entity.rewardAmount = BigDecimal.fromString('0')
         entity.save()
         entity = RewardAmountEntity.load(event.params.swaper.toHex())
     }
@@ -60,7 +60,7 @@ export function handleSwap(event: Swap): void {
         infoEntity = new RewardInfoEntity(event.address.toHex())
         infoEntity.blockNumber = event.block.number
         infoEntity.timestamp = event.block.timestamp
-        infoEntity.totalAmount = rewardAmount
+        infoEntity.totalAmount = BigDecimal.fromString('0')
         infoEntity.save()
         infoEntity = RewardInfoEntity.load(event.address.toHex())
     }
