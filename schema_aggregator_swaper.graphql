@@ -1,0 +1,7 @@
+type AggregatorSwaperEntity @entity {
+    id: ID!
+    token: String!
+    swaper: String!
+    timestamp: BigInt!
+    blockNumber: BigInt!
+}

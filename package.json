@@ -8,7 +8,10 @@
     "build": "graph build",
     "codegen-burger-aggregator": "graph codegen subgraph_burger_aggregator.yaml",
     "create-burger-aggregator": "graph create --node http://localhost:8020/ burgeraggregator/aggregator",
-    "deploy-burger-aggregator": "graph deploy burgeraggregator/aggregator subgraph_burger_aggregator.yaml --node http://localhost:8020/ --ipfs http://localhost:5001 "
+    "deploy-burger-aggregator": "graph deploy burgeraggregator/aggregator subgraph_burger_aggregator.yaml --node http://localhost:8020/ --ipfs http://localhost:5001 ",
+    "codegen-aggregator-swaper": "graph codegen subgraph_aggregator_swaper.yaml",
+    "create-aggregator-swaper": "graph create --node http://localhost:8020/ burgeraggregator/aggregator-swaper",
+    "deploy-aggregator-swaper": "graph deploy burgeraggregator/aggregator-swaper subgraph_aggregator_swaper.yaml --node http://localhost:8020/ --ipfs http://localhost:5001 "
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.18.0",
